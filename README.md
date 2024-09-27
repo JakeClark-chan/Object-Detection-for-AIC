@@ -8,4 +8,4 @@ Run: `streamlit run app.py`
 
 Reproduce environment: `pip install -r requirements.txt` **with Python 3.11.x**
 
-Or install these packages: `pip install numpy pandas scikit-learn torch tqdm opencv streamlit transformers accelerate ultralytics qdrant_client` (just run and check if there is any missing package hihi)
+Or install these packages: `pip install numpy pandas scikit-learn torch tqdm opencv-python streamlit transformers accelerate ultralytics qdrant_client` (just run and check if there is any missing package hihi)
