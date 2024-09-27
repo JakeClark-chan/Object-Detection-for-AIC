@@ -2,7 +2,7 @@
 
 Note 1: Extract image_detection.zip and put image_detection.db same folder with this project or specify your path in `DB_NAME`.
 
-Note 2: Replace `ROOT_FOLDER` with your images root folder. Paths just work with Linux and MSys2.
+Note 2: Replace `ROOT_FOLDER` with your images root folder.
 
 Run: `streamlit run app.py`
 
