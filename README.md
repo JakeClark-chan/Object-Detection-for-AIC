@@ -1,8 +1,8 @@
 # Object-Detection-for-AIC
 
-Note 1: Extract image_detection.zip and put image_detection.db same folder with this project or specify your path in `DB_NAME`.
+Note 1: Extract image_detection.zip and put image_detection.db same folder with this project or specify your path in `DB_NAME` inside `constants.py`.
 
-Note 2: Replace `ROOT_FOLDER` with your images root folder.
+Note 2: Replace `ROOT_FOLDER` with your images root folder, also inside `constants.py`.
 
 Run: `streamlit run app.py`
 
