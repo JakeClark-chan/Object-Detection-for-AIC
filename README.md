@@ -4,6 +4,8 @@ Note 1: Extract image_detection.zip and put image_detection.db same folder with 
 
 Note 2: Replace `ROOT_FOLDER` with your images root folder, also inside `constants.py`.
 
+Note 3: Color Detection feature is not completed. Please don't use it.
+
 Run: `streamlit run app.py`
 
 Reproduce environment: `pip install -r requirements.txt` **with Python 3.11.x**
