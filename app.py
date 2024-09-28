@@ -10,6 +10,9 @@ import contextlib
 import sys
 import math
 import cv2
+import re
+import video_player
+from text_query import custom_page
 
 import os
 from PIL import Image
@@ -46,13 +49,18 @@ def suppress_output():
 
 # Sidebar Navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Choose a page", ["Object Filter", "Drawable Canvas"])
+page = st.sidebar.selectbox("Choose a page", ["Text Query", "Object Filter", "Drawable Canvas", "Video Frame"])
 
 # Settings: Batch size
 batch_size = st.sidebar.number_input("Batch size", min_value=1, max_value=64, value=20, step=1)
 
-# Page 1: Object Filter
-if page == "Object Filter":
+# Page 1: Text Query
+if page == "Text Query":
+    if 'text_record' not in st.session_state:
+        st.session_state.text_record = None
+    custom_page()
+# Page 2: Object Filter
+elif page == "Object Filter":
     st.title("Object Detection and Image Search")
     
     # Overwrite option
@@ -175,8 +183,17 @@ if page == "Object Filter":
             img_path = os.path.join(ROOT_FOLDER, image)
             with cols[i % 4]:
                 st.image(Image.open(img_path), caption=f"{image} - Frame {frame_idx} - Confidence: {confidence:.2f}", use_column_width=True)
+                def send_button_callback(image, frame_idx):
+                    # Just take video name from image name
+                    video_list = re.search(r"\bL\d+_V\d+", image)
+                    video_list = video_list.group()
+                    st.session_state['video_file'] = video_list + ".mp4"
+                    st.session_state['frame_number'] = frame_idx
+                    st.write(f"Sent to Video Frame {video_list} at frame {frame_idx}")
+                st.button("Send to Video Frame", on_click=send_button_callback, args=(image, frame_idx), key=f"button_{i}")
+                    
 
-# Page 2: Drawable Canvas
+# Page 3: Drawable Canvas
 elif page == "Drawable Canvas":
     st.title("Search by Drawing Bounding Boxes")
 
@@ -228,3 +245,6 @@ elif page == "Drawable Canvas":
                 st.write("No matching images found.")
         else:
             st.write("No bounding boxes detected.")
+# Page 4: Video Frame
+elif page == "Video Frame":
+    video_player.main()
