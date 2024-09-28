@@ -12,7 +12,7 @@ import math
 import cv2
 import re
 import video_player
-from text_query import custom_page
+import text_query
 
 import os
 from PIL import Image
@@ -58,7 +58,7 @@ batch_size = st.sidebar.number_input("Batch size", min_value=1, max_value=64, va
 if page == "Text Query":
     if 'text_record' not in st.session_state:
         st.session_state.text_record = None
-    custom_page()
+    text_query.custom_page()
 # Page 2: Object Filter
 elif page == "Object Filter":
     st.title("Object Detection and Image Search")

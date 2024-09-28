@@ -130,28 +130,31 @@ def main():
         if frame is not None:
             st.image(frame_to_bytes(frame), channels="BGR", caption=f"Current frame: {st.session_state['frame_number']}")
 
-        """
-        Output CSV with 100 frames from start to end
-        """
+        
+        st.write("Output CSV with 100 frames from start to end")
         # Output CSV with 100 frames from start to end
-        # Input frame number start
-        start_frame = st.number_input(
-            "Start frame for CSV:", 
-            min_value=0, 
-            max_value=total_frames-1, 
-            value=st.session_state['frame_number'] - 100, 
-            step=1
-        )
-        # Input frame number end
-        end_frame = st.number_input(
-            "End frame for CSV:", 
-            min_value=0, 
-            max_value=total_frames-1, 
-            value=st.session_state['frame_number'] + 100, 
-            step=1
-        )
-        # Input additional data that will append at end of each line
-        additional_data = st.text_input("Enter additional data to append at end of each line", "Nope")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            # Input frame number start
+            start_frame = st.number_input(
+                "Start frame for CSV:", 
+                min_value=0, 
+                max_value=total_frames-1, 
+                value=st.session_state['frame_number'] - 100, 
+                step=1
+            )
+        with col2:
+            # Input frame number end
+            end_frame = st.number_input(
+                "End frame for CSV:", 
+                min_value=0, 
+                max_value=total_frames-1, 
+                value=st.session_state['frame_number'] + 100, 
+                step=1
+            )
+        with col3:
+            # Input additional data that will append at end of each line
+            additional_data = st.text_input("Enter additional data to append at end of each line, keep Nope for no additional data", "Nope")
         # Input CSV file name
         csv_file = st.text_input("Enter the CSV file name", "query_output.csv")
         # Logic to generate CSV content
@@ -165,6 +168,11 @@ def main():
             csv_content = "\n".join(csv_content)
         else:
             st.error("Start frame must be less than or equal to end frame")
+        # Show CSV content
+        toggle = st.toggle("Show CSV content", False)
+        if toggle:
+            # Show code box with CSV content
+            st.code(csv_content, language="csv")
         # Download button for CSV
         st.download_button("Download CSV", data=csv_content, file_name=csv_file, mime="text/csv")
         st.write("Note: Ensure that you press Enter after inputting above values to generate CSV content")

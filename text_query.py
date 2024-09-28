@@ -113,6 +113,7 @@ def get_n_nearest_frame(record_id, n=10):
 def custom_page():
     st.title("Text Query")
     text_input = st.text_input('Input query', st.session_state.text_record if st.session_state.text_record else "")
+    csv_selector = st.empty()
     if text_input:
         # Save the text record
         st.session_state.text_record = text_input
@@ -137,6 +138,37 @@ def custom_page():
                     st.session_state['frame_number'] = frame_idx
                     st.write(f"Sent to Video Frame {video_list} at frame {frame_idx}")
                 st.button("Send to Video Frame", on_click=send_button_callback, args=(image_path, frame_idx), key=f"button_{idx}")
+        # If there are images to display, show the CSV input
+        if answer_images:
+            with csv_selector.container():
+                # Input additional data that will append at end of each line
+                additional_data = st.text_input("Enter additional data to append at end of each line, keep Nope for no additional data", "Nope")
+                # Input CSV file name
+                csv_file = st.text_input("Enter the CSV file name", "query_output.csv")
+                # Logic to generate CSV content
+                if not csv_file:
+                    csv_file = "query_output.csv"
+                if additional_data != "Nope":
+                    answer_images = [row + [additional_data] for row in answer_images]
+                    df = pd.DataFrame(answer_images, columns=["Name_Vid", "Frame_Idx", "Additional_Info"])
+                else:
+                    df = pd.DataFrame(answer_images, columns=["Name_Vid", "Frame_Idx"])
+                
+                # Chuyển đổi DataFrame thành định dạng CSV
+                csv = df.to_csv(index=False, header=False)
+
+                # Show CSV content
+                toggle = st.toggle("Show CSV content", False)
+                if toggle:
+                    # Show code box with CSV content
+                    st.code(csv, language="csv")
+                # Cho phép người dùng tải xuống file CSV
+                st.download_button(
+                    label="Download CSV",
+                    data=csv,
+                    file_name=csv_file if csv_file.endswith('.csv') else f"{csv_file}.csv",
+                    mime="text/csv"
+                )
                 
 
 def main():
