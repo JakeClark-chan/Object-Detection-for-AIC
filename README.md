@@ -6,6 +6,8 @@ Note 2: Replace `ROOT_FOLDER` with your images root folder, also inside `constan
 
 Note 3: Color Detection feature is not completed. Please don't use it.
 
+Note 4: If you have different Qdrant Client, like not use localhost but use cloud, please change `QDRANT_CLIENT` to your client in `constants.py`.
+
 Run: `streamlit run app.py`
 
 Reproduce environment: `pip install -r requirements.txt` **with Python 3.11.x**

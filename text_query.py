@@ -9,7 +9,7 @@ import re
 from PIL import Image, ImageDraw, ImageFont
 # from googletrans import Translator
 from translate import Translator
-
+from constants import QDRANT_CLIENT
 
 
 collection_name = 'image_embeddings'
@@ -30,10 +30,7 @@ if 'qdrant_client' not in st.session_state:
     #     api_key="sXOzR8G8PS3R9O2TO1mfQhwA2Iz3OX-VFr_RSHHiecUU0e0XK7oYjw",
     #     timeout = 60
     # )
-    st.session_state.qdrant_client = QdrantClient(
-        host="localhost",
-        port=6333,
-    )
+    st.session_state.qdrant_client = QDRANT_CLIENT
 
 if 'clip_model' not in st.session_state or 'clip_preprocess' not in st.session_state or 'device' not in st.session_state:
     st.session_state.device ="cpu"
