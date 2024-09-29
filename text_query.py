@@ -111,7 +111,7 @@ def get_n_nearest_frame(record_id, n=10):
     )
 
 def custom_page():
-    st.title("Text Query")
+    st.title("Text Query for Image Search")
     text_input = st.text_input('Input query', st.session_state.text_record if st.session_state.text_record else "")
     csv_selector = st.empty()
     if text_input:
