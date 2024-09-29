@@ -52,7 +52,7 @@ st.sidebar.title("Navigation")
 page = st.sidebar.selectbox("Choose a page", ["Text Query", "Object Filter", "Drawable Canvas", "Video Frame"])
 
 # Settings: Batch size
-batch_size = st.sidebar.number_input("Batch size", min_value=1, max_value=64, value=20, step=1)
+batch_size = st.sidebar.number_input("Batch size for object detection", min_value=1, max_value=64, value=20, step=1)
 
 # Page 1: Text Query
 if page == "Text Query":
@@ -177,11 +177,11 @@ elif page == "Object Filter":
         conn.close()
 
 
-        # Display images in 4 columns
-        cols = st.columns(4)
+        # Display images in 3 columns
+        cols = st.columns(3)
         for i, (image, confidence, frame_idx) in enumerate(matching_images):
             img_path = os.path.join(ROOT_FOLDER, image)
-            with cols[i % 4]:
+            with cols[i % 3]:
                 st.image(Image.open(img_path), caption=f"{image} - Frame {frame_idx} - Confidence: {confidence:.2f}", use_column_width=True)
                 def send_button_callback(image, frame_idx):
                     # Just take video name from image name

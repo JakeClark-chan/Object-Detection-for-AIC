@@ -68,6 +68,7 @@ def main():
         video_list = re.search(r"\bL\d+", video_file)
         video_path = os.path.join(VIDEO_ROOT_FOLDER, f"Videos_{video_list.group()}_a/{video_file}")
         st.write(f"Searching in path {video_path}")
+        st.write("Tips: If number input or slider is not responsive, try to move left or right by 1 frame")
 
         # Add more button to execute "djv video_path" command
         def execute_command(video_path):
@@ -140,7 +141,7 @@ def main():
                 "Start frame for CSV:", 
                 min_value=0, 
                 max_value=total_frames-1, 
-                value=st.session_state['frame_number'] - 100, 
+                value = 0, 
                 step=1
             )
         with col2:
@@ -149,7 +150,7 @@ def main():
                 "End frame for CSV:", 
                 min_value=0, 
                 max_value=total_frames-1, 
-                value=st.session_state['frame_number'] + 100, 
+                value = 99, 
                 step=1
             )
         with col3:
