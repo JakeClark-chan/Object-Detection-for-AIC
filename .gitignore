@@ -1,0 +1,11 @@
+# It will be installed automatically
+yolo*
+*.db
+# Ignore environment files
+.env
+.venv
+venv
+env
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
